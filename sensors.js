@@ -5,6 +5,9 @@ const assert = require('assert');
 class Sensors {
 
   constructor() {
+	this.sensorType= {NextVal:1, Data:[]};
+	this.addSensor= {NextVal:1,Data: []};
+	this.addSensorData= {Data:[]};
     //@TODO
   }
 
@@ -20,7 +23,10 @@ class Sensors {
    *  All user errors must be thrown as an array of objects.
    */
   async addSensorType(info) {
+
     const sensorType = validate('addSensorType', info);
+	this.sensorType.Data.push(sensorType);
+    console.log(this.sensorType.Data);
     //@TODO
   }
   
@@ -32,6 +38,8 @@ class Sensors {
    */
   async addSensor(info) {
     const sensor = validate('addSensor', info);
+	this.addSensorData.Data.push(addSensorData);
+    	console.log(this.addSensorData.Data);
     //@TODO
   }
 
@@ -44,6 +52,8 @@ class Sensors {
    */
   async addSensorData(info) {
     const sensorData = validate('addSensorData', info);
+	this.addSensor.Data.push(addSensor);
+    	console.log(this.addSensor.Data);
     //@TODO
   }
 

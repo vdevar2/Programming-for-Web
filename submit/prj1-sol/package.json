@@ -1,0 +1,20 @@
+{
+  "name": "i544",
+  "version": "1.0.0",
+  "description": "Web for Programming",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vdevar2/i544.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vdevar2/i544/issues"
+  },
+  "homepage": "https://github.com/vdevar2/i544#readme"
+}

@@ -6,16 +6,29 @@ const validate = require('./validate');
 const assert = require('assert');
 const mongo = require('mongodb').MongoClient;
 
+const MONGO_URL = 'mongodb://localhost:27017';
+const DB_NAME = 'sensors';
+
+
+
+
+
 class Sensors {
 
-
+  constructor(client, db) {
+    this.client = client;
+    this.db = db;
+  }
   /** Return a new instance of this class with database as
    *  per mongoDbUrl.  Note that mongoDbUrl is expected to
    *  be of the form mongodb://HOST:PORT/DB.
    */
   static async newSensors(mongoDbUrl) {
     //@TODO
-    return new Sensors();    
+	
+    const client = await mongo.connect(MONGO_URL, {useNewUrlParser: true, useUnifiedTopology: true});
+    const db = client.db(DB_NAME);
+    return new Sensors(client, db);    
   }
 
   /** Release all resources held by this Sensors instance.
@@ -23,6 +36,7 @@ class Sensors {
    */
   async close() {
     //@TODO
+	await this.client.close();
   }
 
   /** Clear database */
@@ -37,8 +51,22 @@ class Sensors {
    *  All user errors must be thrown as an array of AppError's.
    */
   async addSensorType(info) {
-    const sensorType = validate('addSensorType', info);
+   	const sensorType = validate('addSensorType', info);
     //@TODO
+	
+	const collect = await this.db.collection("sensorType");
+
+	
+
+const ans = collect.replaceOne({id:sensorType.id},sensorType,{upsert:true},function (error, response) {
+    if(error) {
+        console.log('Error occurred while inserting');
+       // return 
+    } else {
+       console.log('inserted record', response.ops[0]);
+      // return 
+    }
+});
   }
   
   /** Subject to field validation as per validate('addSensor', info)
@@ -51,6 +79,19 @@ class Sensors {
   async addSensor(info) {
     const sensor = validate('addSensor', info);
     //@TODO
+	const collect1 = await this.db.collection("sensor");
+
+	
+
+const ans1 = collect1.replaceOne({id:sensor.id},sensor,{upsert:true},function (error, response) {
+    if(error) {
+        console.log('Error occurred while inserting');
+       // return 
+    } else {
+       console.log('inserted record', response.ops[0]);
+      // return 
+    }
+});
   }
 
   /** Subject to field validation as per validate('addSensorData',
@@ -64,6 +105,19 @@ class Sensors {
   async addSensorData(info) {
     const sensorData = validate('addSensorData', info);
     //@TODO
+	const collect2 = await this.db.collection("sensorData");
+
+	
+
+const ans2 = collect2.replaceOne({id:sensorData.id},sensorData,{upsert:true},function (error, response) {
+    if(error) {
+        console.log('Error occurred while inserting');
+       // return 
+    } else {
+       console.log('inserted record', response.ops[0]);
+      // return 
+    }
+});
   }
 
   /** Subject to validation of search-parameters in info as per
